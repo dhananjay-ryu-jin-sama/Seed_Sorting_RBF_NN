@@ -51,6 +51,8 @@ The training of an RBF NN involves two main steps:
 
 # Result
 
+In the training phase the model can predict up to 95% pass rate and with 0.0155 error.
+
 ![results](https://github.com/dhananjay-ryu-jin-sama/Seed_Sorting_RBF_NN/assets/144810835/091be4fb-480c-445f-8009-08827a49e8ba)
 
 
