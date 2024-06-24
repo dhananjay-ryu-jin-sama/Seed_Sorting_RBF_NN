@@ -1,4 +1,4 @@
-# Seed_Sorting_RBF_NN
+# Seed Sorting RBF NN
 
 This document presents the implementation of a Radial Basis Function (RBF) Neural Network model for the purpose of identifying different types of olive seeds. The RBF Neural Network is a type of artificial neural network that uses radial basis functions as activation functions, and is particularly effective for pattern recognition tasks. This implementation leverages Python and relevant libraries to achieve accurate classification of olive seed varieties.
 
