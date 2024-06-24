@@ -47,17 +47,10 @@ The training of an RBF NN involves two main steps:
 - **Function Approximation**: Used for approximating unknown functions based on input-output pairs.
 - **Time Series Prediction**: Applicable in forecasting future values based on historical data.
 
-### Example
-Consider an RBF NN for a simple classification problem with two input features and three classes:
-
-1. **Input Layer**: 2 neurons (one for each feature).
-2. **Hidden Layer**: 10 neurons (using Gaussian RBFs).
-3. **Output Layer**: 3 neurons (one for each class).
-
-The input features are passed to the hidden layer, where each hidden neuron calculates the distance to its center, applies the Gaussian function, and produces an output. The output layer then combines these outputs to produce the final classification.
-
-### Summary
-The RBF Neural Network is a powerful tool for various machine learning tasks, thanks to its ability to handle non-linear data and perform localized approximation. It is relatively easy to train and can provide high accuracy in classification and regression tasks.
-
-
 ![image](https://github.com/dhananjay-ryu-jin-sama/Seed_Sorting_RBF_NN/assets/144810835/1aa5f190-b0d0-4884-81f9-18e81b5c978c)
+
+# Result
+
+![results](https://github.com/dhananjay-ryu-jin-sama/Seed_Sorting_RBF_NN/assets/144810835/091be4fb-480c-445f-8009-08827a49e8ba)
+
+
