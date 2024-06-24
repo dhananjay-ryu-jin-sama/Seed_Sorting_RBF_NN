@@ -4,121 +4,60 @@ This document presents the implementation of a Radial Basis Function (RBF) Neura
 
 # RBF NN
 
-Radial basis function (RBF) networks typically have three layers: an input layer, a hidden layer with a non-linear RBF activation function and a linear output layer. The input can be modeled as a vector of real numbers 
-𝑥
-∈
-𝑅
-𝑛
-{\displaystyle \mathbf {x} \in \mathbb {R} ^{n}}. The output of the network is then a scalar function of the input vector, 
-𝜑
-:
-𝑅
-𝑛
-→
-𝑅
-{\displaystyle \varphi :\mathbb {R} ^{n}\to \mathbb {R} }, and is given by
+### Radial Basis Function Neural Network (RBF NN)
 
-𝜑
-(
-𝑥
-)
-=
-∑
-𝑖
-=
-1
-𝑁
-𝑎
-𝑖
-𝜌
-(
-|
-|
-𝑥
-−
-𝑐
-𝑖
-|
-|
-)
-{\displaystyle \varphi (\mathbf {x} )=\sum _{i=1}^{N}a_{i}\rho (||\mathbf {x} -\mathbf {c} _{i}||)}
-where 
-𝑁
-{\displaystyle N} is the number of neurons in the hidden layer, 
-𝑐
-𝑖
-{\displaystyle \mathbf {c} _{i}} is the center vector for neuron 
-𝑖
-{\displaystyle i}, and 
-𝑎
-𝑖
-{\displaystyle a_{i}} is the weight of neuron 
-𝑖
-{\displaystyle i} in the linear output neuron. Functions that depend only on the distance from a center vector are radially symmetric about that vector, hence the name radial basis function. In the basic form, all inputs are connected to each hidden neuron. The norm is typically taken to be the Euclidean distance (although the Mahalanobis distance appears to perform better with pattern recognition[4][5][editorializing]) and the radial basis function is commonly taken to be Gaussian
+#### Overview
+A Radial Basis Function Neural Network (RBF NN) is a type of artificial neural network that uses radial basis functions as activation functions. It is particularly effective for pattern recognition, classification, and function approximation tasks.
 
-𝜌
-(
-‖
-𝑥
-−
-𝑐
-𝑖
-‖
-)
-=
-exp
-⁡
-[
-−
-𝛽
-𝑖
-‖
-𝑥
-−
-𝑐
-𝑖
-‖
-2
-]
-{\displaystyle \rho {\big (}\left\Vert \mathbf {x} -\mathbf {c} _{i}\right\Vert {\big )}=\exp \left[-\beta _{i}\left\Vert \mathbf {x} -\mathbf {c} _{i}\right\Vert ^{2}\right]}.
-The Gaussian basis functions are local to the center vector in the sense that
+#### Architecture
+An RBF NN typically consists of three layers:
 
-lim
-|
-|
-𝑥
-|
-|
-→
-∞
-𝜌
-(
-‖
-𝑥
-−
-𝑐
-𝑖
-‖
-)
-=
-0
-{\displaystyle \lim _{||x||\to \infty }\rho (\left\Vert \mathbf {x} -\mathbf {c} _{i}\right\Vert )=0}
-i.e. changing parameters of one neuron has only a small effect for input values that are far away from the center of that neuron.
+1. **Input Layer**: 
+   - This layer consists of input neurons that pass the input features to the next layer without any transformation.
 
-Given certain mild conditions on the shape of the activation function, RBF networks are universal approximators on a compact subset of 
-𝑅
-𝑛
-{\displaystyle \mathbb {R} ^{n}}.[6] This means that an RBF network with enough hidden neurons can approximate any continuous function on a closed, bounded set with arbitrary precision.
+2. **Hidden Layer**: 
+   - This layer contains neurons with radial basis functions as their activation functions. 
+   - Each neuron computes the distance between the input and a center point, then applies the radial basis function to this distance. The Gaussian function is the most common choice for the radial basis function, defined as:
+     \[
+     \phi(\|x - c\|) = \exp\left(-\frac{\|x - c\|^2}{2\sigma^2}\right)
+     \]
+   - Here, \(x\) is the input vector, \(c\) is the center of the RBF neuron, and \(\sigma\) is the spread parameter.
 
-The parameters 
-𝑎
-𝑖
-{\displaystyle a_{i}}, 
-𝑐
-𝑖
-{\displaystyle \mathbf {c} _{i}}, and 
-𝛽
-𝑖
-{\displaystyle \beta _{i}} are determined in a manner that optimizes the fit between 
-𝜑{\displaystyle \varphi } and the data.
+3. **Output Layer**: 
+   - This layer performs a linear combination of the hidden layer outputs and provides the final output of the network.
+   - The output is typically a weighted sum of the radial basis functions.
+
+#### Training Process
+The training of an RBF NN involves two main steps:
+
+1. **Determining the Centers and Spreads**:
+   - **Centers**: The center points \(c_i\) of the RBF neurons are typically determined using clustering algorithms like K-Means.
+   - **Spreads**: The spread \(\sigma\) can be fixed or computed based on the distances between centers.
+
+2. **Training the Output Weights**:
+   - Once the centers and spreads are fixed, the output weights are trained using a linear learning algorithm, such as least squares or gradient descent. The objective is to minimize the error between the predicted output and the actual target values.
+
+#### Advantages
+- **Local Approximation**: RBF neurons respond only to inputs close to their centers, providing good local approximation properties.
+- **Flexibility**: The network can model complex, non-linear functions.
+- **Simplicity**: Training the output layer is straightforward and computationally efficient.
+
+#### Applications
+- **Pattern Recognition**: Effective for classifying complex patterns.
+- **Function Approximation**: Used for approximating unknown functions based on input-output pairs.
+- **Time Series Prediction**: Applicable in forecasting future values based on historical data.
+
+### Example
+Consider an RBF NN for a simple classification problem with two input features and three classes:
+
+1. **Input Layer**: 2 neurons (one for each feature).
+2. **Hidden Layer**: 10 neurons (using Gaussian RBFs).
+3. **Output Layer**: 3 neurons (one for each class).
+
+The input features are passed to the hidden layer, where each hidden neuron calculates the distance to its center, applies the Gaussian function, and produces an output. The output layer then combines these outputs to produce the final classification.
+
+### Summary
+The RBF Neural Network is a powerful tool for various machine learning tasks, thanks to its ability to handle non-linear data and perform localized approximation. It is relatively easy to train and can provide high accuracy in classification and regression tasks.
+
+
 ![image](https://github.com/dhananjay-ryu-jin-sama/Seed_Sorting_RBF_NN/assets/144810835/1aa5f190-b0d0-4884-81f9-18e81b5c978c)
